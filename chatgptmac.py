@@ -1,17 +1,13 @@
 import openai
 import sys
-
+apikey = 'APIKEY'
 
 class Color:
     BOLD = '\033[1m'
     END = '\033[0m'
 
-
 def intro():
-    print(Color.BOLD + '''
-        (ノಠ益ಠ)ノ彡 ⊥Ԁ⅁ʇɐɥƆ
-        ''' + Color.END)
-
+    print(Color.BOLD + '''(ノಠ益ಠ)ノ彡''' + Color.END)
 
 class AI:
 
@@ -21,11 +17,14 @@ class AI:
     def performTask(self, *args):
         # Create prompt string from arguments
         args = ' '.join(sys.argv[1:])
+        if len(args) == 0:
+            print("Empty prompt")
+            return
         # Print prompt string
         print(Color.BOLD + 'Prompt: ' + Color.END + args)
-        print()
+        # print()
         # Authenticate with OpenAI API key
-        openai.api_key = 'YOUR_API_KEY'
+        openai.api_key = apikey
         # Compile request
         response = openai.Completion.create(
             model='text-davinci-003',
@@ -39,7 +38,6 @@ class AI:
         for key in data:
             print(key['text'])
         print()
-
 
 myAI = AI()
 myAI.performTask()
